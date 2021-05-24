@@ -48,4 +48,6 @@ def SPY_FAANGT_data():
     SPY_FAANGT_close_df.to_csv('Data/csv_files/SPY_FAANGT_close_data.csv') 
     SPY_FAANGT_df.to_csv('Data/csv_files/SPY_FAANGT_data.csv')     
 
-    return SPY_FAANGT_df, SPY_FAANGT_close_df
+    return SPY_FAANGT_close_df
+
+#Add a YYYY-MM-DD input so that data can be sliced to be same length in version 2.0

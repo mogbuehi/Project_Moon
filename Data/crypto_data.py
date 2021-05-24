@@ -65,12 +65,12 @@ def crypto_data_collector(user_start_time, user_end_time): # Make function for c
         coin_API = cg.get_coin_market_chart_range_by_id( CG_id, 'usd', cg_start, cg_end) #API call to CoinGecko and grabing historical price data
         prices_dictionary[CG_id] = coin_API['prices'] # updating dictionary with CG_id as key and list o lists of unix time stamp and price data
         df_temp = pd.DataFrame(prices_dictionary[CG_id], columns=['time', CG_id+' prices']) # creating a temporary df that will later be appeneded into df_list
-        df_temp['time'] = pd.to_datetime(df_temp['time'], origin='unix', unit='ms') #links (was having issue converting UNIX this helped https://github.com/pandas-dev/pandas/issues/10987)
+        df_temp['time'] = pd.to_datetime(df_temp['time'], origin='unix', unit='ms', infer_datetime_format=True) #links (was having issue converting UNIX this helped https://github.com/pandas-dev/pandas/issues/10987)
         df_temp.set_index('time', inplace=True)
         df_list.append(df_temp)#append dataframe list in the loop
 
-    coin_historical_df = pd.concat(df_list, axis=1, join='outer') 
-    coin_historical_df.to_csv('Data/crypto_price_data.csv')
+    crypto_price_df = pd.concat(df_list, axis=1, join='outer') 
+    crypto_price_df.to_csv('Data/csv_files/crypto_price_data.csv')
     
 #-----------------------------------------------------------------------------------------------------------------------------------------------------     
     return crypto_price_df
